@@ -3,7 +3,6 @@ import PokemonCard from "@/components/PokemonCard";
 import { toast } from "@/components/ui/use-toast";
 import { getPokemon, getPokemonDetail } from "@/utils/apis/api";
 import { Pokemon } from "@/utils/apis/types";
-import { ResponseResults } from "@/utils/types/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
