@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const navigate = useNavigate();
+  console.log(navigate);
 
   const [pokemon, setPokemon] = useState<Pokemon[]>();
 
@@ -19,7 +20,7 @@ const Index = () => {
     try {
       const result = await getPokemon();
 
-      const pokemonCardMapping = result.results.map(async (data, index) => {
+      const pokemonCardMapping = result.results.map(async (data) => {
         const dataResult = await getPokemonDetail(data.name);
         return dataResult;
       });
@@ -40,7 +41,7 @@ const Index = () => {
       <Layout>
         <div className="grid grid-cols-2 gap-4">
           {pokemon?.map((data, index) => (
-            <PokemonCard data={data} />
+            <PokemonCard data={data} key={index} />
           ))}
         </div>
       </Layout>
