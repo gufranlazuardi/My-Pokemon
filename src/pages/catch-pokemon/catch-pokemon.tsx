@@ -30,6 +30,7 @@ const CatchPokemon = () => {
     };
     setPokemons([...pokemons, myPokemons]);
     setNickName("");
+    console.log(handleAddPokemon);
   };
 
   useEffect(() => {
