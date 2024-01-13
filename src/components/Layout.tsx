@@ -12,7 +12,7 @@ const Layout = (props: Readonly<Props>) => {
     <div className="h-screen w-full flex justify-center overflow-auto">
       <div className=" w-full md:w-[640px] border flex flex-col">
         <Navbar />
-        <div className="grow p-4 overflow-auto">{children}</div>
+        <div className="grow p-4 overflow-auto relative">{children}</div>
         <Footer />
       </div>
     </div>
