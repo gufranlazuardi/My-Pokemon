@@ -1,7 +1,58 @@
 import Layout from "@/components/Layout";
-import React from "react";
+import { toast } from "@/components/ui/use-toast";
+import { getPokemonDetail } from "@/utils/apis";
+import { Pokemon } from "@/utils/apis/types";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+const getDataFromLocalStorage = () => {
+  const data = localStorage.getItem("myPokemon");
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};
 
 const CatchPokemon = () => {
+  const [catchPoke, setCatchPoke] = useState<Pokemon>();
+  const [pokemons, setPokemons] = useState(getDataFromLocalStorage);
+  const [nickname, setNickName] = useState("");
+
+  const params = useParams();
+
+  const handleAddPokemon = (event: React.FormEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    let myPokemons = {
+      nickname,
+      data_pokemon: catchPoke,
+    };
+    setPokemons([...pokemons, myPokemons]);
+    setNickName("");
+  };
+
+  useEffect(() => {
+    fetchData();
+    localStorage.setItem("myPokemon", JSON.stringify(pokemons));
+  }, []);
+
+  async function fetchData() {
+    try {
+      const result = await getPokemonDetail(params.id!);
+      setCatchPoke(result);
+    } catch (error: any) {
+      toast({
+        title: "Oops! something went wrong",
+        description: error.toString(),
+        variant: "destructive",
+      });
+    }
+  }
+
+  // const a = 4
+  // const b = a > 5 ? true : false
+
   return (
     <Layout>
       {/* <img
@@ -23,6 +74,13 @@ const CatchPokemon = () => {
           alt="pokeball"
           className=" w-20 h-auto"
         />
+      </div>
+      <div className=" w-full flex justify-center absolute top-1/3">
+        <div className=" w-[20rem] h-[20rem] border flex justify-center items-center bg-slate-500 rounded-xl">
+          <h1>Congratulation</h1>
+          <p>You </p>
+          <p>test</p>
+        </div>
       </div>
     </Layout>
   );
