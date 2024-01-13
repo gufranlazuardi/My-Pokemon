@@ -43,3 +43,15 @@ export interface Pokemon {
   }[];
   weight: number;
 }
+
+export interface Species {
+  id: number;
+  habitat: {
+    name: string;
+    url: string;
+  };
+  ability: {
+    name: string;
+    url: string;
+  };
+}

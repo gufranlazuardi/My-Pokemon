@@ -1,6 +1,6 @@
 import axiosWithConfig from "../axiosWithConfig";
 import { Response } from "../types/api";
-import { Pokemon } from "./types";
+import { Pokemon, Species } from "./types";
 
 export const getPokemon = async () => {
   try {
@@ -20,4 +20,12 @@ export const getPokemonDetail = async (name: string) => {
   } catch (error: any) {
     throw Error(error.response.data.message);
   }
+};
+
+export const getPokemonSpecies = async (id: number) => {
+  try {
+    const response = await axiosWithConfig.get(`pokemon-species/${id}`);
+
+    return response.data as Species;
+  } catch (error) {}
 };
