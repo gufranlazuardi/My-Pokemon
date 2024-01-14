@@ -23,9 +23,9 @@ const Index = () => {
     try {
       const result = await getPokemon();
 
-      const pokemonCardMapping = result.results.map(async (data, index) => {
-        const dataResult = await getPokemonDetail(data.name);
-        return dataResult;
+      const pokemonCardMapping = result.results.map(async (data) => {
+        const dataResult = await axios.get(data.url);
+        return dataResult.data;
       });
 
       const results: Pokemon[] = await Promise.all(pokemonCardMapping);

@@ -1,10 +1,12 @@
-import Layout from "@/components/Layout";
-import { Button } from "@/components/ui/button";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import Layout from "@/components/Layout";
+
 import { getPokemonDetail } from "@/utils/apis";
 import { Pokemon } from "@/utils/apis/types";
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 const getDataFromLocalStorage = () => {
   const data = localStorage.getItem("myPokemon");
@@ -20,9 +22,8 @@ const CatchPokemon = () => {
   const [catchPoke, setCatchPoke] = useState(false);
   const [pokemons, setPokemons] = useState(getDataFromLocalStorage);
   const [nickname, setNickName] = useState("");
-  const { toast } = useToast();
   const navigate = useNavigate();
-
+  const { toast } = useToast();
   const params = useParams();
 
   const handleAddPokemon = () => {
@@ -32,19 +33,13 @@ const CatchPokemon = () => {
     };
     setPokemons([...pokemons, myPokemons]);
     setNickName("");
-<<<<<<< HEAD
-    console.log(handleAddPokemon);
-  };
-=======
-    setCatchPoke(false);
->>>>>>> 48c9f26 (fix: pages & api)
 
     toast({
       title: "Great Job!!!",
       description: "Pokemons now already in your My Pokemon",
       variant: "default",
     });
-    navigate("/");
+    navigate(-1);
   };
 
   async function fetchData() {
@@ -65,16 +60,8 @@ const CatchPokemon = () => {
     localStorage.setItem("myPokemon", JSON.stringify(pokemons));
   }, [pokemons]); // Menjalankan ulang fungsi memasukkan data ke local storage untuk kedua kalinya/jika data pokemon telah berubah(terisi)
 
-  // const a = 4
-  // const b = a > 5 ? true : false
-
   return (
     <Layout>
-      {/* <img
-        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f849f1e6-b991-4b89-bd9b-7b86ae209054/d6msae4-d91b5219-f842-41da-970e-d80535e50b66.png/v1/fill/w_1024,h_576,q_80,strp/bosque_naruto_by_lwisf3rxd_d6msae4-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTc2IiwicGF0aCI6IlwvZlwvZjg0OWYxZTYtYjk5MS00Yjg5LWJkOWItN2I4NmFlMjA5MDU0XC9kNm1zYWU0LWQ5MWI1MjE5LWY4NDItNDFkYS05NzBlLWQ4MDUzNWU1MGI2Ni5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.BWNggBSYAwZqGkchrDnFj1xvbiO8FXEu8-6CflN_XpM"
-        alt="forest-background"
-        className="w-full h-screen"
-      /> */}
       <div className="grid grid-cols-1 gap-28 pt-9 place-items-center">
         <div className=" w-fit h-fit p-4 border rounded-md text-2xl font-bold">
           <p>This is {pokemonData?.name}</p>
@@ -121,4 +108,3 @@ const CatchPokemon = () => {
 };
 
 export default CatchPokemon;
-//play
