@@ -12,9 +12,9 @@ export const getPokemon = async () => {
   }
 };
 
-export const getPokemonDetail = async (name: string) => {
+export const getPokemonDetail = async (id_pokemon: number) => {
   try {
-    const response = await axiosWithConfig.get(`/pokemon/${name}`);
+    const response = await axiosWithConfig.get(`/pokemon/${id_pokemon}`);
 
     return response.data as Pokemon;
   } catch (error: any) {

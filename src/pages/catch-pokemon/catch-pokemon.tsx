@@ -1,9 +1,10 @@
 import Layout from "@/components/Layout";
-import { toast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { getPokemonDetail } from "@/utils/apis";
 import { Pokemon } from "@/utils/apis/types";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 const getDataFromLocalStorage = () => {
   const data = localStorage.getItem("myPokemon");
@@ -15,33 +16,41 @@ const getDataFromLocalStorage = () => {
 };
 
 const CatchPokemon = () => {
-  const [catchPoke, setCatchPoke] = useState<Pokemon>();
+  const [pokemonData, setPokemonData] = useState<Pokemon>();
+  const [catchPoke, setCatchPoke] = useState(false);
   const [pokemons, setPokemons] = useState(getDataFromLocalStorage);
   const [nickname, setNickName] = useState("");
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   const params = useParams();
 
-  const handleAddPokemon = (event: React.FormEvent<HTMLInputElement>) => {
-    event.preventDefault();
-
+  const handleAddPokemon = () => {
     let myPokemons = {
       nickname,
       data_pokemon: catchPoke,
     };
     setPokemons([...pokemons, myPokemons]);
     setNickName("");
+<<<<<<< HEAD
     console.log(handleAddPokemon);
   };
+=======
+    setCatchPoke(false);
+>>>>>>> 48c9f26 (fix: pages & api)
 
-  useEffect(() => {
-    fetchData();
-    localStorage.setItem("myPokemon", JSON.stringify(pokemons));
-  }, []);
+    toast({
+      title: "Great Job!!!",
+      description: "Pokemons now already in your My Pokemon",
+      variant: "default",
+    });
+    navigate("/");
+  };
 
   async function fetchData() {
     try {
-      const result = await getPokemonDetail(params.id!);
-      setCatchPoke(result);
+      const result = await getPokemonDetail(+params.id_pokemon!);
+      setPokemonData(result);
     } catch (error: any) {
       toast({
         title: "Oops! something went wrong",
@@ -50,6 +59,11 @@ const CatchPokemon = () => {
       });
     }
   }
+
+  useEffect(() => {
+    fetchData();
+    localStorage.setItem("myPokemon", JSON.stringify(pokemons));
+  }, [pokemons]); // Menjalankan ulang fungsi memasukkan data ke local storage untuk kedua kalinya/jika data pokemon telah berubah(terisi)
 
   // const a = 4
   // const b = a > 5 ? true : false
@@ -63,26 +77,45 @@ const CatchPokemon = () => {
       /> */}
       <div className="grid grid-cols-1 gap-28 pt-9 place-items-center">
         <div className=" w-fit h-fit p-4 border rounded-md text-2xl font-bold">
-          This is Bulbasaur
+          <p>This is {pokemonData?.name}</p>
         </div>
         <img
-          src="https://id.portal-pokemon.com/play/resources/pokedex/img/pm/5794f0251b1180998d72d1f8568239620ff5279c.png"
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonData?.id!}.svg`}
           alt="pokemon"
           className="w-[20rem] h-auto"
         />
-        <img
-          src="https://pngimg.com/d/pokeball_PNG27.png"
-          alt="pokeball"
-          className=" w-20 h-auto"
-        />
-      </div>
-      <div className=" w-full flex justify-center absolute top-1/3">
-        <div className=" w-[20rem] h-[20rem] border flex justify-center items-center bg-slate-500 rounded-xl">
-          <h1>Congratulation</h1>
-          <p>You </p>
-          <p>test</p>
+        <div onClick={() => setCatchPoke(true)}>
+          <img
+            src="https://pngimg.com/d/pokeball_PNG27.png"
+            alt="pokeball"
+            className="w-20 h-auto"
+          />
         </div>
       </div>
+      {catchPoke && (
+        <div className="w-full flex justify-center absolute top-32">
+          <div className="w-[30rem] h-[30rem] border flex flex-col gap-8 justify-center items-center bg-white rounded-xl">
+            <h1 className="text-4xl font-bold">Congratulation!</h1>
+            <div className="flex flex-col items-center">
+              <p className="text-xl">You've got</p>
+              <p className="font-bold text-2xl">Bulbasaur</p>
+            </div>
+            <div className="flex flex-col items-center w-full px-16">
+              <p>Nickname</p>
+              <form className="flex flex-col items-center gap-4">
+                <input
+                  type="text"
+                  className="border w-full h-8 justify-center text-center rounded-md border-black"
+                  onChange={(e) => setNickName(e.target.value)}
+                />
+                <Button type="button" onClick={() => handleAddPokemon()}>
+                  Save
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };

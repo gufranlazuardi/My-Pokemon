@@ -11,11 +11,19 @@ export default function Router() {
       element: <Index />,
     },
     {
+<<<<<<< HEAD
       path: "/detail/:id",
       element: <DetailPokemon />,
     },
     {
       path: "/catch/:id",
+=======
+      path: "/detail/:id_pokemon",
+      element: <DetailPokemon />,
+    },
+    {
+      path: "/catch/:id_pokemon",
+>>>>>>> 48c9f26 (fix: pages & api)
       element: <CatchPokemon />,
     },
     {

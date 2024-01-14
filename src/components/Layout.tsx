@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { Toaster } from "./ui/toaster";
 
 interface Props {
   children: ReactNode;
@@ -14,6 +15,7 @@ const Layout = (props: Readonly<Props>) => {
         <Navbar />
         <div className="grow p-4 overflow-auto relative">{children}</div>
         <Footer />
+        <Toaster />
       </div>
     </div>
   );

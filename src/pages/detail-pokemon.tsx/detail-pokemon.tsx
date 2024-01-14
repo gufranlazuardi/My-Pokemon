@@ -22,7 +22,7 @@ const DetailPokemon = () => {
 
   async function fetchData() {
     try {
-      const result = await getPokemonDetail(params.id!);
+      const result = await getPokemonDetail(+params.id_pokemon!);
 
       setPokemon(result);
     } catch (error: any) {
@@ -36,7 +36,7 @@ const DetailPokemon = () => {
 
   async function fetchDataSpecies() {
     try {
-      const result = await getPokemonSpecies(+params.id!);
+      const result = await getPokemonSpecies(+params.id_pokemon!);
 
       setSpecies(result);
       console.log("ini species", result);
@@ -57,7 +57,11 @@ const DetailPokemon = () => {
           alt="pokemon"
           className="border rounded-lg h-full p-8"
         />
-        <div className="border rounded-lg p-4 h-full">
+        <div className="flex flex-col border rounded-lg p-4 h-full">
+          <div className="flex text-center pb-4">
+            <p className="text-3xl font-bold">{pokemon?.name.toUpperCase()}</p>
+            {/* kenapa gabisa ketengah textnya */}
+          </div>
           {pokemon?.stats.map((data, index) => (
             <div key={index}>
               <div className="flex justify-between py-2">
@@ -94,7 +98,7 @@ const DetailPokemon = () => {
         <Button
           className="flex w-full bg-green-500 shadow-md shadow-green-500"
           onClick={() => {
-            navigate(`/catch/:${pokemon?.id}`);
+            navigate(`/catch/${pokemon?.id}`);
           }}
         >
           Catch

@@ -1,10 +1,13 @@
-import Layout from "@/components/Layout";
-import PokemonCard from "@/components/PokemonCard";
-import { toast } from "@/components/ui/use-toast";
-import { getPokemon, getPokemonDetail } from "@/utils/apis/api";
-import { Pokemon } from "@/utils/apis/types";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import PokemonCard from "@/components/PokemonCard";
+import { toast } from "@/components/ui/use-toast";
+import Layout from "@/components/Layout";
+
+import { getPokemon } from "@/utils/apis/api";
+import { Pokemon } from "@/utils/apis/types";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -20,12 +23,12 @@ const Index = () => {
     try {
       const result = await getPokemon();
 
-      const pokemonCardMapping = result.results.map(async (data) => {
+      const pokemonCardMapping = result.results.map(async (data, index) => {
         const dataResult = await getPokemonDetail(data.name);
         return dataResult;
       });
 
-      const results: any = await Promise.all(pokemonCardMapping);
+      const results: Pokemon[] = await Promise.all(pokemonCardMapping);
       setPokemon(results);
     } catch (error: any) {
       toast({
