@@ -18,7 +18,11 @@ const Navbar = () => {
         alt="pokeball"
         className="w-14 h-14"
       />
-      <Button onClick={() => handleTheme()} variant={"outline"}>
+      <Button
+        onClick={() => handleTheme()}
+        variant={"outline"}
+        className="mr-6 border-none"
+      >
         {theme === "light" ? <Sun /> : <Moon />}
       </Button>
     </div>

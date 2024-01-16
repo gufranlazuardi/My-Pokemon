@@ -9,6 +9,7 @@ interface Props {
 
 const Layout = (props: Readonly<Props>) => {
   const { children } = props;
+
   return (
     <div className="h-screen w-full flex justify-center overflow-auto font-josefin">
       <div className=" w-full md:w-[640px] border flex flex-col">
