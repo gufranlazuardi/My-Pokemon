@@ -19,6 +19,10 @@ Pokemon, and build your own collection
 
 Typescript, React, Tailwind, Shadcn
 
+## 🧲 API
+
+[PokeAPI](https://pokeapi.co/) 
+
 ## 🏃 Run Locally
 
 Clone the project
