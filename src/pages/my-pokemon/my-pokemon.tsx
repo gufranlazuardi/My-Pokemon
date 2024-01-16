@@ -2,7 +2,6 @@ import MyPokemonCard from "@/components/MyPokemonCard";
 import { Pokemon } from "@/utils/apis/types";
 import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
-import { Button } from "@/components/ui/button";
 
 interface CatchPokemon {
   nickname: string;
@@ -36,14 +35,14 @@ const MyPokemon = () => {
 
   return (
     <Layout>
-      <div className="">
-        {pokemon.map((pokemon, index) => {
+      <div className="grid grid-cols-2 gap-6">
+        {pokemon.map((pokemon) => {
           return (
-            <div key={index} className="grid grid-cols-2">
-              <Button onClick={() => handleDelete}>Del</Button>
+            <div className="flex flex-col items-center">
               <MyPokemonCard
                 nickname={pokemon.nickname}
                 data={pokemon.data_pokemon}
+                handledelete={() => handleDelete(pokemon.nickname)}
               />
             </div>
           );

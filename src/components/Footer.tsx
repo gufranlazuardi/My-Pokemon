@@ -1,3 +1,4 @@
+import { HomeIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
@@ -11,11 +12,7 @@ const Footer = () => {
           navigate("/");
         }}
       >
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/25/25694.png"
-          alt="home"
-          className=" w-auto h-8"
-        />
+        <HomeIcon />
         <p>Home</p>
       </div>
       <div
@@ -25,8 +22,8 @@ const Footer = () => {
         }}
       >
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTjPb9FGESHN-2IFr940Mkw-rWBdC5Xyt4Nw&usqp=CAU"
-          alt="pokeball-black"
+          src="https://pngimg.com/d/pokeball_PNG27.png"
+          alt="pokeball"
           className="w-auto h-8"
         />
         <p>My Pokemon</p>

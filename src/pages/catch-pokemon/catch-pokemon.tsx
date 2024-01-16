@@ -18,10 +18,10 @@ const getDataFromLocalStorage = () => {
 };
 
 const CatchPokemon = () => {
+  const [pokemons, setPokemons] = useState(getDataFromLocalStorage());
   const [pokemonData, setPokemonData] = useState<Pokemon>();
+  const [nickname, setNickName] = useState<string>();
   const [catchPoke, setCatchPoke] = useState(false);
-  const [pokemons, setPokemons] = useState(getDataFromLocalStorage);
-  const [nickname, setNickName] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
   const params = useParams();
@@ -29,7 +29,7 @@ const CatchPokemon = () => {
   const handleAddPokemon = () => {
     let myPokemons = {
       nickname,
-      data_pokemon: catchPoke,
+      data_pokemon: pokemonData,
     };
     setPokemons([...pokemons, myPokemons]);
     setNickName("");

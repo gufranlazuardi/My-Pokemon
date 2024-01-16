@@ -1,4 +1,15 @@
+import { useTheme } from "@/utils/context/theme-provider";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "./ui/button";
+
 const Navbar = () => {
+  const { theme, setTheme } = useTheme();
+
+  function handleTheme() {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+  }
+
   return (
     <div className="flex items-center justify-between py-8">
       <div className="w-14 h-14"></div>
@@ -7,13 +18,9 @@ const Navbar = () => {
         alt="pokeball"
         className="w-14 h-14"
       />
-      <div>
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/6714/6714978.png"
-          alt="moon"
-          className="w-14 h-14 mr-4"
-        />
-      </div>
+      <Button onClick={() => handleTheme()} variant={"outline"}>
+        {theme === "light" ? <Sun /> : <Moon />}
+      </Button>
     </div>
   );
 };
